@@ -1,3 +1,48 @@
+### What I have done for now :
+***
+
+-> in the test file:
+at the beginning I have created some database which are used in the unit tests, plus re-init functions to reinitialize the variables
+
+class TerminalNode: in the function '__eq__' : I have added a condition to make sure that the objects compared are instances of TerminalNode, otehrwise it raises an error in a otehr function
+
+class NonTerminalNode:
+- In the class NonTerminalNode, we can see some functions that were defined in the file NonTerminalNode.py, but which I wasn't able to test because the class TerminalNode was not defined in this file.
+- the function 'convert_filter' was difficult to test because the function convert_fn could be anything returning a couple
+
+class OperationNode:
+- function 'convert_filter' : difficult to test because the function convert_fn could be anything
+- function 'str_not' : beware, False==0 return True so if Node.non_terminal.type = False, there is an error !
+- function '__eq__': I don't know why we decided to define the equality of the class by the equality of instance.raw I find it dangerous.
+For example, in a function I had 2 instances with the same raw but otherwise different, and when I wanted to print one the other was printed, and I think I is because the computer thought there were equal...just a thought and noten because I imagine that there is a reason to define this equality
++ we have to defined every time self.raw because I don't know why but it called the function hash
+
+functions inside any class:
+- function 'build_operation_node_graph': I have add 'global processed_nodes' which was not defined yet
+- function 'print_operation_node_graph': I have probably not understood correctly how a logger file works, but I don't see any change in the logger file or in the terminal... because it is just debug message ?
+- function 'remove_node_in_operation_node_graph': there is an error in the function; "RuntimeError: Set changed size during iteration" in "for n in g[node_to_remove]["list"]:"
+We must create a deepcopy of 'g[node_to_remove]["list"]' at the beginning. I wrote a function corrected just after which works
+- function '_get_operation_node_graph_paths': same comments concerning the logger file (still debuging message)
+- function 'clean_nodes_in_operation_node_graph': the print of the logger is writen in the terminal, why not in the logger file ?
+
+class ReducedVertice:
+- add of the __eq__ function + of 'lst__eq__' which compare 2 lists of instances of ReducedVertice
+- function '_replace_in_list': here there can't be more than 1 change, I just want to make sure that it is normal, I wrote a proposition of correction just after if it was not normal, which I use after in the 2 following functions
+
+- in the file tested : 
+add of comments to make the functions more understandable by the reader
+
+
+
+beware, 
+/!!!!!!!!\ : it is extremely dangerous to base the __eq__function only on node.raw, because if 2 nodes are different but have the same raw, the computer will make them equal at all the points, for example when I tried to print g[Node2] it print g[Node3] but it was false !!!
+
++ I didn't know exactly with what to test 'parent_node' beacuse of the line 'if parent_node', because if we attempt to put an unkown node to parent_node, it passes 'if parent_node', but raises an error after because it exists not g
+
+
+remove_duplicate_node_edges : need to actualize g each time 
+
+
 ong_mark_not() : parent_node & nodes_to_process not unsed but in the parameters
 same in ong_end_path() + g not returned, I don't know how but g is modified when the function is called, even if it is not defined as a global variable
 
